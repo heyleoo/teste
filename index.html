@@ -3,16 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Wikitrivia</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        ul:empty {
+    padding:20px;
+    background: pink;
+  }
+    </style>
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+  
+  
+<!-- Latest Sortable -->
+<script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+  
+
 </head>
 <body>
-    <div id="timeline"></div>
-    <div id="card">
-        <h1 id="subject"></h1>
-        <h2 id="date"></h2>
-    </div>
-    <button id="start">Iniciar jogo</button>
-    <p id="score">Pontuação: 0</p>
-    <script src="script.js"></script>
+    
+    <div class="row">
+        <div class="col-xs-6">
+          <h4>List 1</h4>
+          <ul id="list" class="list-group">
+            <li class="list-group-item">Item 1</li>
+          </ul>
+        </div>
+      
+        <div class="col-xs-6">
+          <h4>List 2</h4>
+          <ul id="list2" class="list-group"></ul>
+        </div>
+      </div>
+
+<script src="script.js"></script>
+
+<!--===== SORTABLE JS =====-->
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
 </body>
 </html>
