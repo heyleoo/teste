@@ -1,44 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Wikitrivia</title>
-    <style>
-        ul:empty {
-    padding:20px;
-    background: pink;
-  }
-    </style>
+  <head>
+	
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="include/css/style.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.1/css/all.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-  
-  
-<!-- Latest Sortable -->
-<script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+	<title>CARD VERTICAL</title>
+	
+  </head>
+  <body>
   
 
-</head>
 <body>
-    
-    <div class="row">
-        <div class="col-xs-6">
-          <h4>List 1</h4>
-          <ul id="list" class="list-group">
-            <li class="list-group-item">Item 1</li>
-          </ul>
-        </div>
-      
-        <div class="col-xs-6">
-          <h4>List 2</h4>
-          <ul id="list2" class="list-group"></ul>
-        </div>
-      </div>
+	<div class="top">
+	<!--<button id="cardss-btn" onclick="duplicate()">Novo Card</button>-->
+	</div>
 
+	<br>
+
+
+	<div class="container" id="sortable1">
+
+		<div id="cardcontainer"></div>
+		
+		<!-- START CARD /ITEM -->
+	<div class="card" id="cards">
+		<div class="face face1" id="bg" data-image="image">
+		<div class="overlay"></div>
+		<div class="content">
+			<div class="top">
+			<span class="tag no" data-data="data"></span>
+			</div>
+			<div class="bottom">
+			<h2 class="title" data-name="name"></h2>
+			</div>
+		</div>
+		</div>
+		<div class="face face2">
+		<div class="content">
+			<p class="card_data"><i class="fas fa-star"></i> <span data-data_full="data_full"></span></p>
+			<p id="description" data-resume="resume"></p>
+			<div class="bottom" id="vernosc"><a href="#" data-link="link">Ver no Ser Curioso</a></div>
+		</div>
+		</div>
+	</div>
+	<!-- END CARD /ITEM -->
+		
+	  
+	  </div>  
+	  
+	  <div class="horizontal-scroll">
+	  <div class="container" id="sortable">
+	  
+	  <div id="cardcontainer"></div>
+	  
+	  <!-- START CARD /ITEM -->
+	  <div class="card no-drag" id="cards">
+		<div class="face face1" id="bg" style='background-image: url("https://images.fanart.tv/bigpreview/the-batman-5f41d8295fdd5.jpg");'>
+		  <div class="overlay"></div>
+		  <div class="content">
+			<div class="top">
+			  <span class="tag no">2022</span>
+			</div>
+			<div class="bottom">
+			  <h2 class="title"> Lançamento do filme 'The Batman'<h2>
+			</div>
+		  </div>
+		</div>
+		<div class="face face2">
+		  <div class="content">
+			<p class="card_data"><i class="fas fa-star"></i> 03 de março de 2022</p>
+			<p id="description"> Um filme de aventura e ficção científica dirigido por Robert Zemeckis, com Michael J. Fox e Christopher Lloyd...</p>
+			<div class="bottom" id="vernosc"><span>Ver no Ser Curioso</span></div>
+		  </div>
+		</div>
+	  </div>
+	  <!-- END CARD /ITEM -->	
+	  
+	  </div>	
+	  
+	  </div>
+
+
+
+<!--SCRIPT LIST-->
 <script src="script.js"></script>
+<!--<script src="sort_animation.js"></script>-->
 
 <!--===== SORTABLE JS =====-->
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
-</body>
+
+  
+  </body>
 </html>
