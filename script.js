@@ -1,49 +1,85 @@
+// Função para ler o arquivo JSON e mostrar os dados no HTML
+function mostrarDados() {
+    // Ler o arquivo JSON usando o método fetch
+    fetch("info.json")
+      .then(res => res.json()) // Converter a resposta em um objeto JavaScript
+      .then(data => { // Usar os dados do objeto
+        // Gerar um número aleatório entre 0 e 2
+        let random = Math.floor(Math.random() * 3);
+        // Selecionar a entrada do array de objetos JSON com o índice igual ao número aleatório
+        let filme = data[random];
+        // Selecionar todos os elementos HTML que têm o atributo data-
+        let elements = document.querySelectorAll("[data-]");
+        // Percorrer os elementos HTML
+        for (let element of elements) {
+          // Obter o nome da propriedade do objeto JSON que corresponde ao elemento HTML
+          let property = element.getAttribute("data-");
+          // Verificar se o elemento HTML é a div com id "bg"
+          if (element.id === "bg") {
+            // Atribuir o valor da propriedade do objeto JSON ao estilo background-image do elemento HTML
+            element.style.backgroundImage = `url("${filme[property]}")`;
+          } else {
+            // Atribuir o valor da propriedade do objeto JSON ao conteúdo do elemento HTML
+            element.textContent = filme[property];
+          }
+        }
+      })
+      .catch(err => console.error(err)); // Tratar possíveis erros
+  }
+
+
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+
+
+// Função para inicializar os Sortables
+function init() {
+    // Selecionar os elementos HTML das listas
+    var list1 = document.getElementById("sortable1");
+    var list2 = document.getElementById("sortable");
   
-  new Sortable(list, {
-    group: {
-        name: 'shared',
-    },
-    animation: 150,
+    // Criar as instâncias do SortableJS para cada lista
+    // LISTA 01
+    var sortable1 = new Sortable(list1, {
+      group: "shared", // definir o nome do grupo compartilhado
+      animation: 150, // definir a duração da animação em ms
+      cursor: "grab", // definir o cursor para indicar que o item é arrastável
+      ghostClass: "ui-placeholder", // definir a classe CSS para o item fantasma
+      forceFallback: true, // forçar o uso do fallback em vez do HTML5 DnD
+      draggable: ".card", // definir o seletor CSS para os itens arrastáveis
 
-    onRemove: function (evt) { // evento disparado quando um item é removido da lista
-        var item = evt.item; // o item removido
-        var lista = evt.from; // a lista de origem
-        var novoItem = item.cloneNode(true); // criar uma cópia do item removido
-        novoItem.textContent = "Item " + Math.floor(Math.random() * 100); // atribuir um texto aleatório ao novo item
-        lista.appendChild(novoItem); // adicionar o novo item ao final da lista de origem
+      onRemove: function (evt) {
+        // função que é chamada quando um item é removido da lista
+        var item = evt.item; // o item arrastado
+        var toList = evt.to; // a lista de destino
+        if (toList.id == "sortable2") { // se a lista de destino é a list2
+          var clone = item.cloneNode(true); // criar uma cópia do item
+          clone.setAttribute("id", "clone"); // alterar o id do clone
+          list1.appendChild(clone); // inserir o clone na lista de origem
+          list1.removeChild(item); // remover o item original da lista de origem
+        }
       }
-    
-});
 
-new Sortable(list2, {
-    group: {
-        name: 'shared',
-    },
-    animation: 150,
+    });
+  
+    // LISTA 02
+    var sortable2 = new Sortable(list2, {
+      group: "shared", // definir o mesmo nome do grupo compartilhado
+      animation: 150, // definir a mesma duração da animação
+      cursor: "grab", // definir o mesmo cursor
+      ghostClass: "ui-placeholder", // definir a mesma classe CSS
+      forceFallback: true, // forçar o uso do mesmo fallback
+      draggable: ".card", // definir o mesmo seletor CSS
+      filter: ".no-drag", // definir a classe CSS para os itens que devem ser ignorados
+    });
+  }
+  
+  // Chamar a função init depois que o documento for carregado
+  document.addEventListener("DOMContentLoaded", init);
 
-    sort: function (a, b) {
-        // comparar o texto dos elementos
-        return a.textContent.localeCompare(b.textContent);
-      },
+  
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 
-    emptyInsertThreshold: 0,
-    
-    filter: ".fixo", // desabilitar o arrastamento dos itens com a classe "fixo"
-  store: {
-    // Função para salvar a ordem dos itens na lista
-    set: function (sortable) {
-      var order = sortable.toArray(); // obter um array com os ids dos itens na ordem atual
-      localStorage.setItem(sortable.options.group.name, order.join("|")); // salvar o array no armazenamento local usando o nome do grupo como chave
-    },
-    // Função para restaurar a ordem dos itens na lista
-    get: function (sortable) {
-      var order = localStorage.getItem(sortable.options.group.name); // obter o array salvo no armazenamento local usando o nome do grupo como chave
-      return order ? order.split("|") : []; // retornar o array ou um array vazio se não houver nada salvo
-    }
-  },
-  onAdd: function (evt) { // evento disparado quando um item é adicionado na lista
-    var item = evt.item; // o item adicionado
-    item.classList.add("fixo"); // adicionar a classe "fixo" ao item
-  },
-
-});
+  // Chamar a função mostrarDados depois que o código do SortableJS for executado
+  mostrarDados();
